@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>URL Shortener</title>
+
+<style>
+body{
+font-family: Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+padding-top:120px;
+}
+
+input{
+width:350px;
+padding:10px;
+border-radius:5px;
+border:none;
+margin-top:10px;
+}
+
+button{
+padding:10px 20px;
+margin-top:10px;
+background:#22c55e;
+border:none;
+border-radius:5px;
+color:white;
+cursor:pointer;
+}
+
+.result{
+margin-top:20px;
+font-size:18px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🔗 URL Shortener</h1>
+
+<p>Enter a long URL to generate a short link</p>
+
+<input id="longUrl" placeholder="Paste URL here">
+
+<br>
+
+<button onclick="shorten()">Shorten URL</button>
+
+<div class="result" id="result"></div>
+
+<script>
+
+function shorten(){
+
+let url = document.getElementById("longUrl").value;
+
+if(!url){
+alert("Please enter a URL");
+return;
+}
+
+let code = Math.random().toString(36).substring(2,7);
+
+let shortUrl = window.location.origin + "/" + code;
+
+localStorage.setItem(code,url);
+
+document.getElementById("result").innerHTML =
+`Short URL: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
+}
+
+let path = window.location.pathname.substring(1);
+
+if(path){
+
+let stored = localStorage.getItem(path);
+
+if(stored){
+window.location.href = stored;
+}
+
+}
+
+</script>
+
+</body>
+</html>
